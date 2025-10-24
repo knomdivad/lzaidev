@@ -1,0 +1,25 @@
+# Development Dockerfile for .NET with hot reload
+FROM mcr.microsoft.com/dotnet/sdk:9.0
+
+# Install curl for health checks
+RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
+
+# Set working directory
+WORKDIR /src
+
+# Install dotnet tools
+RUN dotnet tool install --global dotnet-ef
+
+# Copy project file and restore dependencies
+COPY *.csproj .
+RUN dotnet restore
+
+# Expose ports
+EXPOSE 8080
+
+# Set environment variables
+ENV ASPNETCORE_ENVIRONMENT=Development
+ENV DOTNET_USE_POLLING_FILE_WATCHER=1
+
+# Default command (can be overridden)
+CMD ["dotnet", "watch", "run", "--urls", "http://+:8080"]

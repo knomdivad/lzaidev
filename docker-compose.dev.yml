@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  # .NET Backend API with hot reload
+  backend-dev:
+    build:
+      context: ./src/LandingZoneAI.Portal
+      dockerfile: Dockerfile.dev
+    container_name: lzai-backend-dev
+    ports:
+      - "5001:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:8080
+      - DOTNET_USE_POLLING_FILE_WATCHER=1
+      - DOTNET_WATCH_RESTART_ON_RUDE_EDIT=1
+    volumes:
+      - ./src/LandingZoneAI.Portal:/src:cached
+      - dotnet_packages:/root/.nuget/packages
+    working_dir: /src
+    command: dotnet watch run --urls "http://+:8080"
+    networks:
+      - lzai-network
+
+  # React Frontend with hot reload
+  frontend-dev:
+    build:
+      context: ./frontend/customer-portal
+      dockerfile: Dockerfile.dev
+    container_name: lzai-frontend-dev
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_API_URL=http://localhost:5001/api
+      - CHOKIDAR_USEPOLLING=true
+      - WATCHPACK_POLLING=true
+    volumes:
+      - ./frontend/customer-portal:/app:cached
+      - node_modules:/app/node_modules
+    networks:
+      - lzai-network
+
+  # Redis
+  redis:
+    image: redis:7-alpine
+    container_name: lzai-redis-dev
+    ports:
+      - "6379:6379"
+    networks:
+      - lzai-network
+
+networks:
+  lzai-network:
+    driver: bridge
+
+volumes:
+  dotnet_packages:
+  node_modules:

@@ -1,37 +1,130 @@
-# Local .terraform directories
-.terraform/
 
-# .tfstate files
+.vscode
+*.pyc
+crash.log
+debug.log
+
+pull-secret.txt
+#######################################
+# Terraform
+#######################################
+# Credentials
+app-service-principal.json
+*gcp.json
+terraform/plans/gcp-k8/*service_account.json
+
+# state/vars/tf providers
+.terraform.lock.hcl
+terraform/modules/*.zip
+**/.terraform/*
+terraform.tfstate.d/
+*.tfstate.backup
 *.tfstate
 *.tfstate.*
+.terraform.tfstate.lock.info
+*terraform.tfstate*
+.terraform
 
-# Crash log files
-crash.log
-crash.*.log
-
-# Exclude all .tfvars files, which are likely to contain sensitive data, such as
-# password, private keys, and other secrets. These should not be part of version 
-# control as they are data points which are potentially sensitive and subject 
-# to change depending on the environment.
+# vars
 *.tfvars
-*.tfvars.json
+# do not ignore terraform.tfvars
+!terraform.tfvars
+!alz_*.tfvars
 
-# Ignore override files as they are usually used to override resources locally and so
-# are not checked in
+# Override
 override.tf
 override.tf.json
 *_override.tf
 *_override.tf.json
 
-# Ignore transient lock info files created by terraform apply
-.terraform.tfstate.lock.info
+#plans
+*.plan
+*.out
 
-# Include override files you do wish to add to version control using negated pattern
-# !example_override.tf
+# Backend
+backend*.tf
+backend_terraform.tf
+!backend_alz.tf
+alz_backend_*.tf
 
-# Include tfplan files to ignore the plan output of command: terraform plan -out=tfplan
-# example: *tfplan*
+#provider
+alz_provider_*.tf
 
-# Ignore CLI configuration files
-.terraformrc
-terraform.rc
+# locals
+*_local.tf
+
+#######################################
+# Ansible
+#######################################
+
+ansible/collections/ansible_collections/
+*.retry
+ansible/survey_local/
+ansible/*_local.yml
+ansible/test_local/
+ansible/dev_local/
+ansible/collections/ansible_collections/
+ansible_local.cfg
+
+*_local.yml
+*local.yml
+test*.yml
+debug*.yml
+
+execution-environment/_build
+execution-environment/Dockerfile
+#######################################
+# Other
+#######################################
+
+# KubeConfig
+*kubeconfig*
+
+#python venv
+venv/
+env/
+.venv/
+.env/
+
+######################
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+.idea
+.tox
+*.sublime*
+*.egg-info
+Icon?
+ehthumbs.db
+Thumbs.db
+.eggs
+.dump
+
+# Compressed Files - Should be in Cloud Storage
+*.zip
+Linux_x86*
+.zip*
+.msi
+.rar
+.tar
+.7z
+.tgz
+.rpm
+.jar
+
+# AVM
+.alzlib
+
+# alz
+
+# *.alz_architecture_definition.json
+# *.alz_architecture_definition.yaml
+# *.alz_architecture_definition.yml
+
+# Terragrunt
+.terragrunt-stack
+*-stack/

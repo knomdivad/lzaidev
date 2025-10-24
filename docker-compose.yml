@@ -1,0 +1,72 @@
+version: '3.8'
+
+services:
+  # .NET Backend API
+  backend:
+    build:
+      context: ./src/LandingZoneAI.Portal
+      dockerfile: Dockerfile
+    container_name: lzai-backend
+    ports:
+      - "5001:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:8080
+      - CORS_ORIGINS=http://localhost:3000,http://localhost:80
+    volumes:
+      - ./src/LandingZoneAI.Portal/appsettings.Development.json:/app/appsettings.Development.json:ro
+    networks:
+      - lzai-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # React Frontend
+  frontend:
+    build:
+      context: ./frontend/customer-portal
+      dockerfile: Dockerfile
+    container_name: lzai-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    environment:
+      - REACT_APP_API_URL=http://localhost:5001/api
+    networks:
+      - lzai-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+  # Redis (for future caching/session management)
+  redis:
+    image: redis:7-alpine
+    container_name: lzai-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - lzai-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+networks:
+  lzai-network:
+    driver: bridge
+    name: lzai-network
+
+volumes:
+  redis_data:
+    driver: local
