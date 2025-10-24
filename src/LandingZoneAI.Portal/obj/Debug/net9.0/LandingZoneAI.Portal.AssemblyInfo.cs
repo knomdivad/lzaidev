@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("LandingZoneAI.Portal")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e0a5392d74880212441440e59c96a2120d8b976d")]
 [assembly: System.Reflection.AssemblyProductAttribute("LandingZoneAI.Portal")]
 [assembly: System.Reflection.AssemblyTitleAttribute("LandingZoneAI.Portal")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
