@@ -37,8 +37,8 @@ The fastest way to get started is using the containerized development environmen
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-org/landing-zone-ai.git
-cd landing-zone-ai
+git clone https://github.com/knomdivad/lzaidev.git
+cd lzaidev
 
 # Start in development mode (with hot reload)
 make dev
@@ -78,8 +78,8 @@ make status     # Show service status
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-org/landing-zone-ai.git
-cd landing-zone-ai
+git clone https://github.com/knomdivad/lzaidev.git
+cd lzaidev
 
 # Initialize Terraform
 cd terraform
@@ -183,7 +183,7 @@ Key configuration options in `appsettings.json`:
 ## 📁 Project Structure
 
 ```
-landing-zone-ai/
+lzaidev/
 ├── terraform/                 # Infrastructure as Code
 │   ├── modules/               # Reusable Terraform modules
 │   │   ├── networking/        # VNet, subnets, NSGs
@@ -270,9 +270,9 @@ landing-zone-ai/
 
 ## 🆘 Support
 
-- **Issues**: [GitHub Issues](https://github.com/your-org/landing-zone-ai/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/your-org/landing-zone-ai/discussions)
-- **Documentation**: [Wiki](https://github.com/your-org/landing-zone-ai/wiki)
+- **Issues**: [GitHub Issues](https://github.com/knomdivad/lzaidev/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/knomdivad/lzaidev/discussions)
+- **Documentation**: [Wiki](https://github.com/knomdivad/lzaidev/wiki)
 
 ## 📄 License
 
